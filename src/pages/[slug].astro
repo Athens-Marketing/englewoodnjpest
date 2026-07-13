@@ -1,0 +1,151 @@
+---
+import Base from "../components/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import FaqList from "../components/FaqList.astro";
+import CtaBand from "../components/CtaBand.astro";
+import PestIcon from "../components/PestIcon.astro";
+import { site, primaryServices } from "../data/site.js";
+import { services, serviceBySlug } from "../data/services.js";
+import { areas, areaBySlug } from "../data/areas.js";
+import { imgUrl } from "../data/imgmap.js";
+import { orgNode, serviceNode, faqNode, breadcrumb } from "../lib/schema.js";
+
+export function getStaticPaths() {
+  const s = services.map((x) => ({ params: { slug: x.slug }, props: { kind: "service", slug: x.slug } }));
+  const a = areas.map((x) => ({ params: { slug: x.slug }, props: { kind: "area", slug: x.slug } }));
+  return [...s, ...a];
+}
+
+const { kind, slug } = Astro.props;
+const svc = kind === "service" ? serviceBySlug[slug] : null;
+const area = kind === "area" ? areaBySlug[slug] : null;
+
+const path = `/${slug}/`;
+let title, description, crumbs, jsonld;
+if (kind === "service") {
+  title = `${svc.title}`;
+  description = svc.meta;
+  crumbs = [{ name: "Home", path: "/" }, { name: "Services", path: "/services/" }, { name: svc.label, path }];
+  jsonld = [orgNode(), serviceNode({ name: svc.serviceType, description: svc.meta, path, serviceType: svc.serviceType }), faqNode(svc.faqs), breadcrumb(crumbs)];
+} else {
+  title = area.title;
+  description = area.meta;
+  crumbs = [{ name: "Home", path: "/" }, { name: "Service Areas", path: "/pest-control-in-teaneck/" }, { name: area.name, path }];
+  jsonld = [orgNode(), faqNode(area.faqs), breadcrumb(crumbs)];
+}
+const related = kind === "service" ? (svc.related || []).map((r) => serviceBySlug[r]).filter(Boolean) : [];
+---
+<Base title={title} description={description} path={path} jsonld={jsonld}>
+  <Header />
+  <main id="main">
+    {kind === "service" && (
+      <>
+        <section class="phero phero--svc">
+          <div class="phero-stars"></div>
+          <div class="phero-scrim"></div>
+          <div class="wrap phero-in">
+            <div class="phero-tx">
+              <span class="phero-kick"><PestIcon name={svc.icon} cls="ic" /> {svc.tag}</span>
+              <h1>{svc.h1}</h1>
+              <p>{svc.sub}</p>
+              <a class="btn btn--red btn--lg" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> Call {site.phone}</a>
+            </div>
+            <div class="phero-media"><img src={imgUrl(svc.img)} alt={svc.imgAlt} fetchpriority="high" /></div>
+          </div>
+        </section>
+        <Breadcrumbs items={crumbs} />
+        <section class="sbody">
+          <div class="wrap sbody-in">
+            <article class="sbody-main">
+              <p class="lead">{svc.lead}</p>
+              {svc.sections.map((sec) => (
+                <>
+                  <h2>{sec.h2}</h2>
+                  {sec.body.map((para) => (<p>{para}</p>))}
+                </>
+              ))}
+              <div class="inline-cta">
+                <span class="inline-ic"><PestIcon name="phone" cls="ic" /></span>
+                <div><b>Dealing with this in Englewood?</b><p>Call and describe what you are seeing. We will match you with a local provider.</p></div>
+                <a class="btn btn--red" href={site.phoneHref}>{site.phone}</a>
+              </div>
+            </article>
+            <aside class="sbody-side">
+              <div class="side-card side-card--navy">
+                <h3>What is included</h3>
+                <ul class="side-checks">
+                  {svc.checks.map((c) => (<li><PestIcon name="check" cls="ic" /><span>{c}</span></li>))}
+                </ul>
+                <a class="btn btn--red btn--full" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> {site.phone}</a>
+              </div>
+              {related.length > 0 && (
+                <div class="side-card">
+                  <h3>Related services</h3>
+                  <ul class="side-links">{related.map((r) => (<li><a href={`/${r.slug}/`}>{r.label}</a></li>))}</ul>
+                </div>
+              )}
+            </aside>
+          </div>
+        </section>
+        <FaqList faqs={svc.faqs} heading="Questions about this service" />
+      </>
+    )}
+
+    {kind === "area" && (
+      <>
+        <section class="phero">
+          <div class="phero-stars"></div>
+          <div class="phero-scrim"></div>
+          <div class="wrap phero-in phero-in--area">
+            <span class="phero-kick"><PestIcon name="pin" cls="ic" /> {area.name}, {site.region}</span>
+            <h1>{area.h1}</h1>
+            <p>{area.sub}</p>
+            <a class="btn btn--red btn--lg" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> Call {site.phone}</a>
+          </div>
+        </section>
+        <Breadcrumbs items={crumbs} />
+        <section class="sbody">
+          <div class="wrap sbody-in">
+            <article class="sbody-main">
+              <p class="lead">{area.lead}</p>
+              {area.body.map((para) => (<p>{para}</p>))}
+              <h2>Neighborhoods and landmarks we cover</h2>
+              <ul class="pills">{area.spots.map((s) => (<li>{s}</li>))}</ul>
+              <h2>Pest control services in {area.name}</h2>
+              <div class="area-svc">
+                {primaryServices.map((s) => (
+                  <a class="asvc" href={`/${s.slug}/`}>
+                    <span class="asvc-ic"><PestIcon name={s.icon} cls="ic" /></span>
+                    <b>{s.label}</b>
+                  </a>
+                ))}
+              </div>
+              <div class="inline-cta">
+                <span class="inline-ic"><PestIcon name="phone" cls="ic" /></span>
+                <div><b>Pest problem in {area.name}?</b><p>Call and get matched with a local exterminator who covers your street.</p></div>
+                <a class="btn btn--red" href={site.phoneHref}>{site.phone}</a>
+              </div>
+            </article>
+            <aside class="sbody-side">
+              <div class="side-card side-card--navy">
+                <h3>Local {area.name} pest control</h3>
+                <p class="side-note" style="color:#cddbec">Describe the pest and get matched with a provider covering your {area.name} address.</p>
+                <a class="btn btn--red btn--full" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> {site.phone}</a>
+              </div>
+              <div class="side-card">
+                <h3>Popular services</h3>
+                <ul class="side-links">{primaryServices.slice(0, 6).map((s) => (<li><a href={`/${s.slug}/`}>{s.label}</a></li>))}</ul>
+              </div>
+            </aside>
+          </div>
+        </section>
+        <FaqList faqs={area.faqs} heading={`${area.name} pest control questions`} />
+      </>
+    )}
+
+    <CtaBand />
+  </main>
+  <Footer />
+</Base>

@@ -1,0 +1,66 @@
+---
+import Base from "../components/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CtaBand from "../components/CtaBand.astro";
+import PestIcon from "../components/PestIcon.astro";
+import { site, primaryServices } from "../data/site.js";
+import { imgUrl } from "../data/imgmap.js";
+import { orgNode, breadcrumb } from "../lib/schema.js";
+const path = "/about-us/";
+const title = `About | ${site.brand}`;
+const description = "How Englewood Pest Control approaches Bergen County pests: a source-first plan matched to older homes, dense neighborhoods, and the New Jersey seasons. Call (201) 409-2540.";
+const crumbs = [{ name: "Home", path: "/" }, { name: "About", path }];
+const jsonld = [orgNode(), breadcrumb(crumbs)];
+const values = [
+  { icon: "pin", t: "Local to the county", p: "We start with Bergen County's specific pressure: winter rodents, spring ants and termites, summer ticks, and the fall stink bug push." },
+  { icon: "target", t: "Source over symptom", p: "Colonies, nests, harborage, and entry points get treated, not just the bugs you can see." },
+  { icon: "house", t: "Perimeter to roofline", p: "We work the exterior first, the foundation, sill, utility lines, and roofline, where the pests actually get in." },
+];
+---
+<Base title={title} description={description} path={path} jsonld={jsonld}>
+  <Header />
+  <main id="main">
+    <section class="phero">
+      <div class="phero-stars"></div>
+      <div class="phero-scrim"></div>
+      <div class="wrap phero-in">
+        <div class="phero-tx">
+          <span class="phero-kick"><PestIcon name="star" cls="ic" /> About us</span>
+          <h1>Local Pest Control, Built Around Englewood</h1>
+          <p>We connect homeowners and businesses across Englewood and Bergen County with pest control providers who understand the area, its older homes, its dense neighborhoods, and the pests that come with them.</p>
+          <a class="btn btn--red btn--lg" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> Call {site.phone}</a>
+        </div>
+        <div class="phero-media"><img src={imgUrl("county.jpg")} alt="Residential Bergen County, New Jersey" fetchpriority="high" /></div>
+      </div>
+    </section>
+    <Breadcrumbs items={crumbs} />
+    <section class="sbody">
+      <div class="wrap sbody-in sbody-in--solo">
+        <article class="sbody-main">
+          <p class="lead">Englewood sits in Bergen County, minutes from New York City, where older colonials and Victorians, prewar and newer multifamily, wooded lots near the Palisades, and a busy downtown corridor all shape exactly which pests show up and when. Pest control here works best when it is built around that reality instead of a generic spray schedule.</p>
+          <p>Most local pest problems are not random. Ants trail indoors when the warm months arrive. Mice and Norway rats push in with the first cold snap. German roaches and bed bugs move through multifamily buildings, subterranean termites work up from the soil into older wood, deer ticks wait at the wooded edges of the leafier towns, and every fall the stink bugs gather on warm walls. Treat only what you see inside, and it all comes back.</p>
+          <p>Our approach flips that. We match you with a provider who works the exterior first, the perimeter, the foundation and sill, the utility lines, and the roofline, treats the source of each pest, and keeps the protection working on a schedule tuned to the New Jersey seasons. It is pest control shaped by how Englewood homes are actually built and how these pests actually behave.</p>
+          <h2>What guides the work</h2>
+          <div class="area-svc" style="margin-bottom:1.5rem">
+            {values.map((v) => (
+              <div class="asvc" style="align-items:flex-start;flex-direction:column;gap:8px">
+                <span class="asvc-ic"><PestIcon name={v.icon} cls="ic" /></span>
+                <b>{v.t}</b>
+                <span style="font-size:.9rem;color:var(--body);font-weight:400">{v.p}</span>
+              </div>
+            ))}
+          </div>
+          <h2>Serving Englewood and the surrounding county</h2>
+          <p>We cover Englewood plus Teaneck, Fort Lee, Tenafly, Bergenfield, Leonia, and Hackensack, across Bergen County. Whatever pest you are dealing with, call {site.phone} and we will match you with a provider who knows your area.</p>
+          <div class="area-svc">
+            {primaryServices.map((s) => (<a class="asvc" href={`/${s.slug}/`}><span class="asvc-ic"><PestIcon name={s.icon} cls="ic" /></span><b>{s.label}</b></a>))}
+          </div>
+        </article>
+      </div>
+    </section>
+    <CtaBand />
+  </main>
+  <Footer />
+</Base>
