@@ -43,6 +43,7 @@ const related = kind === "service" ? (svc.related || []).map((r) => serviceBySlu
     {kind === "service" && (
       <>
         <section class="phero phero--svc">
+          <div class="phero-img"><img src={imgUrl("autumn.jpg")} alt="" /></div>
           <div class="phero-stars"></div>
           <div class="phero-scrim"></div>
           <div class="wrap phero-in">
@@ -96,6 +97,7 @@ const related = kind === "service" ? (svc.related || []).map((r) => serviceBySlu
     {kind === "area" && (
       <>
         <section class="phero">
+          <div class="phero-img"><img src={imgUrl("county.jpg")} alt="" /></div>
           <div class="phero-stars"></div>
           <div class="phero-scrim"></div>
           <div class="wrap phero-in phero-in--area">
