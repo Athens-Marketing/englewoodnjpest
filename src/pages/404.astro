@@ -1,0 +1,29 @@
+---
+import Base from "../components/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PestIcon from "../components/PestIcon.astro";
+import { site, primaryServices } from "../data/site.js";
+---
+<Base title={`Page Not Found | ${site.brand}`} description="The page you were looking for could not be found." path="/404/">
+  <Header />
+  <main id="main">
+    <section class="nf">
+      <div class="wrap nf-in" style="margin:0 auto">
+        <span class="nf-num">404</span>
+        <h1>This trail went cold</h1>
+        <p>The page you were after is not here. Let us get you back to something useful.</p>
+        <div class="nf-cta">
+          <a class="btn btn--red btn--lg" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> Call {site.phone}</a>
+          <a class="btn btn--ghost btn--lg" href="/">Back to Home</a>
+        </div>
+        <ul class="nf-links">
+          <li><a href="/services/">All Services</a></li>
+          {primaryServices.slice(0,5).map((s) => (<li><a href={`/${s.slug}/`}>{s.label}</a></li>))}
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>

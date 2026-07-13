@@ -1,0 +1,48 @@
+---
+import Base from "../../components/Base.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import PestIcon from "../../components/PestIcon.astro";
+import { site, primaryServices } from "../../data/site.js";
+import { services } from "../../data/services.js";
+import { orgNode, itemListNode, breadcrumb } from "../../lib/schema.js";
+const path = "/services/";
+const title = `Pest Control Services in Englewood, NJ | ${site.brand}`;
+const description = "Full pest control services in Englewood, NJ: ants, rodents, termites, cockroaches, stinging insects, mosquitoes, ticks, bed bugs, and fall invaders. Call (201) 409-2540.";
+const crumbs = [{ name: "Home", path: "/" }, { name: "Services", path }];
+const jsonld = [orgNode(), itemListNode(primaryServices), breadcrumb(crumbs)];
+---
+<Base title={title} description={description} path={path} jsonld={jsonld}>
+  <Header />
+  <main id="main">
+    <section class="phero">
+      <div class="phero-stars"></div>
+      <div class="phero-scrim"></div>
+      <div class="wrap phero-in phero-in--area">
+        <span class="phero-kick"><PestIcon name="shield" cls="ic" /> Englewood &amp; Bergen County</span>
+        <h1>Pest Control Services in Englewood, NJ</h1>
+        <p>Every service is a plan matched to how that pest gets into a New Jersey home, from the perimeter and the foundation to the wall voids and the roofline. Pick the pest you are dealing with.</p>
+        <a class="btn btn--red btn--lg" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> Call {site.phone}</a>
+      </div>
+    </section>
+    <Breadcrumbs items={crumbs} />
+    <section class="svcpage">
+      <div class="wrap">
+        <div class="svcpage-grid">
+          {services.map((s) => (
+            <a class="svccard" href={`/${s.slug}/`}>
+              <span class="svccard-ic"><PestIcon name={s.icon} cls="ic" /></span>
+              <h3>{s.label}</h3>
+              <p>{s.card}</p>
+              <span class="svccard-go">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m9 6 6 6-6 6"/></svg></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+    <CtaBand />
+  </main>
+  <Footer />
+</Base>

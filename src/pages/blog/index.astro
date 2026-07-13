@@ -1,0 +1,50 @@
+---
+import Base from "../../components/Base.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { site } from "../../data/site.js";
+import { posts } from "../../data/blog.js";
+import { imgUrl } from "../../data/imgmap.js";
+import { orgNode, breadcrumb } from "../../lib/schema.js";
+const path = "/blog/";
+const title = `Englewood Pest Control Blog | ${site.brand}`;
+const description = "Local guides on Bergen County pests: fall stink bugs, carpenter ants vs. termites, winter rodents, deer ticks and Lyme, and choosing a pest control company.";
+const crumbs = [{ name: "Home", path: "/" }, { name: "Blog", path }];
+const jsonld = [orgNode(), breadcrumb(crumbs)];
+---
+<Base title={title} description={description} path={path} jsonld={jsonld}>
+  <Header />
+  <main id="main">
+    <section class="phero">
+      <div class="phero-stars"></div>
+      <div class="phero-scrim"></div>
+      <div class="wrap phero-in phero-in--area">
+        <span class="phero-kick">Local pest journal</span>
+        <h1>The Englewood Pest Journal</h1>
+        <p>Straight talk on the pests, the older homes, and the wooded edges that let them in, written for homeowners across Englewood and Bergen County.</p>
+      </div>
+    </section>
+    <Breadcrumbs items={crumbs} />
+    <section class="blist">
+      <div class="wrap">
+        <div class="blist-grid">
+          {posts.map((p) => (
+            <a class="bcard bcard--full" href={`/blog/${p.slug}/`}>
+              <span class="bcard-img"><img src={imgUrl(p.img)} alt={p.imgAlt} loading="lazy" /></span>
+              <span class="bcard-b">
+                <span class="bcard-tag">{p.tag} · {p.read}</span>
+                <h2>{p.title}</h2>
+                <p>{p.excerpt}</p>
+                <span class="bcard-go">Read article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m9 6 6 6-6 6"/></svg></span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+    <CtaBand />
+  </main>
+  <Footer />
+</Base>
