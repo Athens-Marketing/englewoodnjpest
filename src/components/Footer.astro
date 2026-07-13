@@ -1,0 +1,57 @@
+---
+import { site, primaryServices, footerAreas, hours } from "../data/site.js";
+import PestIcon from "./PestIcon.astro";
+const year = new Date().getFullYear();
+const hlabel = (h) => (h.days.length > 2 ? `${h.days[0].slice(0,3)}–${h.days[h.days.length-1].slice(0,3)}` : h.days.map(d=>d.slice(0,3)).join(", "));
+const to12 = (t) => { let [H,M]=t.split(":").map(Number); const ap=H>=12?"PM":"AM"; H=H%12||12; return `${H}:${M.toString().padStart(2,"0")} ${ap}`; };
+const markSvg = '<path d="M12 2.5 4 5.6v6.1c0 4.9 3.4 8.9 8 10.3 4.6-1.4 8-5.4 8-10.3V5.6z" fill="#1b3a63"/><path d="m12 6.4 1.6 3.3 3.6.5-2.6 2.5.6 3.6L12 14.9l-3.2 1.7.6-3.6-2.6-2.5 3.6-.5z" fill="#C4122F"/>';
+---
+<footer class="ft">
+  <div class="ft-strip"><div class="wrap ft-strip-in">
+    <div><b>Pest problem in Englewood?</b><span>Call a local exterminator now.</span></div>
+    <a class="btn btn--red btn--lg" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> {site.phone}</a>
+  </div></div>
+  <div class="wrap ft-top">
+    <div class="ft-brand">
+      <a href="/" class="ft-logo">
+        <span class="brand-mark"><svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true" set:html={markSvg}></svg></span>
+        <span><b>Englewood</b><i>Pest Control</i></span>
+      </a>
+      <p>Local pest control for Englewood and Bergen County: winter rodents, spring ants and termites, summer mosquitoes and ticks, harvest-time yellowjackets, and fall stink bugs, handled at the source.</p>
+      <a class="btn btn--navy" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> {site.phone}</a>
+    </div>
+    <div class="ft-col">
+      <h3>Services</h3>
+      <ul>{primaryServices.map((s) => (<li><a href={`/${s.slug}/`}>{s.label}</a></li>))}</ul>
+    </div>
+    <div class="ft-col">
+      <h3>Service Areas</h3>
+      <ul>
+        <li><a href="/">Englewood</a></li>
+        {footerAreas.map((a) => (<li><a href={`/${a.slug}/`}>{a.name}</a></li>))}
+      </ul>
+      <h3 class="ft-h2">Company</h3>
+      <ul>
+        <li><a href="/about-us/">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h3>Hours</h3>
+      <ul class="ft-hours">{hours.map((h) => (<li>{hlabel(h)}: {to12(h.opens)}–{to12(h.closes)}</li>))}</ul>
+      <h3 class="ft-h2">Contact</h3>
+      <ul>
+        <li><a href={site.phoneHref}>{site.phone}</a></li>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li>{site.county}, {site.region}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap ft-bot">
+    <p>&copy; {year} {site.brand}. All rights reserved.</p>
+    <p class="ft-disc">{site.brand} connects callers with independent, third-party pest control providers. Calls placed through this site may be routed to a participating provider, and we do not guarantee that any specific company will service your request. Service availability varies by location within Englewood and the surrounding Bergen County communities.</p>
+  </div>
+</footer>
+<a class="callbar" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> Call {site.phone}</a>

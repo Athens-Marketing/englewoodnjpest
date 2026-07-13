@@ -1,0 +1,46 @@
+---
+import { site, navLinks } from "../data/site.js";
+import PestIcon from "./PestIcon.astro";
+const markSvg = '<path d="M12 2.5 4 5.6v6.1c0 4.9 3.4 8.9 8 10.3 4.6-1.4 8-5.4 8-10.3V5.6z" fill="#122747"/><path d="m12 6.4 1.6 3.3 3.6.5-2.6 2.5.6 3.6L12 14.9l-3.2 1.7.6-3.6-2.6-2.5 3.6-.5z" fill="#C4122F"/>';
+---
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <span class="tb-loc"><PestIcon name="pin" cls="ic" /> Serving Englewood &amp; Bergen County, NJ</span>
+    <span class="tb-right">
+      <a href={site.phoneHref}><PestIcon name="phone" cls="ic" /> {site.phone}</a>
+      <span class="tb-sep">|</span>
+      <a href="/contact/">Contact</a>
+    </span>
+  </div>
+</div>
+<header class="hd">
+  <div class="wrap hd-in">
+    <a href="/" class="brand" aria-label={site.brand + " home"}>
+      <span class="brand-mark"><svg width="38" height="38" viewBox="0 0 24 24" aria-hidden="true" set:html={markSvg}></svg></span>
+      <span class="brand-tx"><b>Englewood</b><i>Pest Control</i></span>
+    </a>
+    <nav class="hd-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      {navLinks.map((l) => l.children ? (
+        <div class="hd-item">
+          <a class="hd-item-t" href={l.path}>{l.label}<svg class="hd-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="hd-drop">{l.children.map((c) => (<a href={c.path}>{c.label}</a>))}</div>
+        </div>
+      ) : (<a href={l.path}>{l.label}</a>))}
+    </nav>
+    <a class="hd-cta" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> <span>{site.phone}</span></a>
+    <button class="hd-burger" aria-label="Toggle menu" aria-expanded="false" onclick="document.body.classList.toggle('nav-open');this.setAttribute('aria-expanded',document.body.classList.contains('nav-open'))">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mnav" aria-label="Mobile">
+    <a href="/">Home</a>
+    {navLinks.map((l) => l.children ? (
+      <details class="mnav-group">
+        <summary>{l.label}<svg class="mnav-caret" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="mnav-sub">{l.children.map((c) => (<a href={c.path}>{c.label}</a>))}</div>
+      </details>
+    ) : (<a href={l.path}>{l.label}</a>))}
+    <a class="mnav-call" href={site.phoneHref}>Call {site.phone}</a>
+  </nav>
+</header>

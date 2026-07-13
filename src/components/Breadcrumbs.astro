@@ -1,0 +1,13 @@
+---
+const { items = [] } = Astro.props;
+---
+<nav class="crumbs" aria-label="Breadcrumb">
+  <div class="wrap crumbs-in">
+    {items.map((it, i) => (
+      <>
+        {i > 0 && (<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>)}
+        {it.path && i < items.length - 1 ? (<a href={it.path}>{it.name}</a>) : (<span aria-current="page">{it.name}</span>)}
+      </>
+    ))}
+  </div>
+</nav>

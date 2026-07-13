@@ -1,0 +1,18 @@
+---
+import { site, heroPills } from "../data/site.js";
+import PestIcon from "./PestIcon.astro";
+---
+<section class="cta">
+  <span class="cta-star cta-star--1"><PestIcon name="star" cls="ic" /></span>
+  <span class="cta-star cta-star--2"><PestIcon name="star" cls="ic" /></span>
+  <span class="cta-star cta-star--3"><PestIcon name="star" cls="ic" /></span>
+  <div class="wrap cta-in">
+    <span class="eyebrow eyebrow--light">Talk to a local pro</span>
+    <h2>Ready to take back your Englewood home?</h2>
+    <p>Tell us the pest and the room, and we will connect you with an experienced local exterminator who covers your street. No forms, just a straight phone call.</p>
+    <div class="cta-pills">
+      {heroPills.map((p) => (<a class="cta-pill" href={`/${p.slug}/`}><PestIcon name={p.icon} cls="ic" /> {p.label}</a>))}
+    </div>
+    <a class="btn btn--red btn--lg cta-call" href={site.phoneHref}><PestIcon name="phone" cls="ic" /> Call {site.phone}</a>
+  </div>
+</section>
