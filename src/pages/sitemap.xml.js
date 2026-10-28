@@ -4,7 +4,7 @@ import { areas } from "../data/areas.js";
 import { posts } from "../data/blog.js";
 export async function GET() {
   const urls = [
-    "/", "/services/", "/blog/", "/about-us/", "/contact/", "/privacy-policy/",
+    "/", "/services/", "/blog/", "/about-us/", "/contact/", "/privacy-policy/", "/photo-credits/",
     ...services.map((s) => `/${s.slug}/`),
     ...areas.map((a) => `/${a.slug}/`),
     ...posts.map((p) => `/blog/${p.slug}/`),

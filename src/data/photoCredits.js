@@ -1,0 +1,18 @@
+// Wikimedia Commons photos self-hosted in public/images/. File name, author, license, and source page for each.
+export const photoCredits = [
+  { file: "Liberty Square, Englewood, New Jersey.jpg", author: "Beyond My Ken", license: "CC BY-SA 4.0", url: "https://commons.wikimedia.org/wiki/File:Liberty_Square,_Englewood,_New_Jersey.jpg", images: ["/images/hero.webp"] },
+  { file: "Birchwood Knole, Tenafly, New Jersey.png", author: "George M. Coyte", license: "Public domain", url: "https://commons.wikimedia.org/wiki/File:Birchwood_Knole,_Tenafly,_New_Jersey.png", images: ["/images/residential.webp"] },
+  { file: "Hackensack, New Jersey - 6880309040.jpg", author: "Dougtone", license: "CC BY-SA 2.0", url: "https://commons.wikimedia.org/wiki/File:Hackensack,_New_Jersey_-_6880309040.jpg", images: ["/images/commercial.webp", "/images/blog-choose.webp"] },
+  { file: "Bergen County, New Jersey - 10483852243.jpg", author: "Dougtone", license: "CC BY-SA 2.0", url: "https://commons.wikimedia.org/wiki/File:Bergen_County,_New_Jersey_-_10483852243.jpg", images: ["/images/street.webp"] },
+  { file: "Bergen County, New Jersey - 6580859625.jpg", author: "Dougtone", license: "CC BY-SA 2.0", url: "https://commons.wikimedia.org/wiki/File:Bergen_County,_New_Jersey_-_6580859625.jpg", images: ["/images/county.webp"] },
+  { file: "2014-10-30 09 23 07 Suburban area along Terrace Boulevard during autumn leaf coloration in Ewing, New Jersey.JPG", author: "Famartin", license: "CC BY-SA 4.0", url: "https://commons.wikimedia.org/wiki/File:2014-10-30_09_23_07_Suburban_area_along_Terrace_Boulevard_during_autumn_leaf_coloration_in_Ewing,_New_Jersey.JPG", images: ["/images/autumn.webp", "/images/general-pest.webp"] },
+  { file: "Tapinoma sessile casent0005329 profile 1.jpg", author: "AntWeb.org", license: "CC BY 4.0", url: "https://commons.wikimedia.org/wiki/File:Tapinoma_sessile_casent0005329_profile_1.jpg", images: ["/images/ant-control.webp", "/images/blog-ants.webp"] },
+  { file: "Rattus norvegicus 1.jpg", author: "National Park Service", license: "Public domain", url: "https://commons.wikimedia.org/wiki/File:Rattus_norvegicus_1.jpg", images: ["/images/rodent-control.webp", "/images/blog-rodent.webp"] },
+  { file: "Reticulitermes banyulensis crop.jpg", author: "Hans Hillewaert", license: "CC BY-SA 4.0", url: "https://commons.wikimedia.org/wiki/File:Reticulitermes_banyulensis_crop.jpg", images: ["/images/termite-control.webp"] },
+  { file: "German cockroach.jpg", author: "Saphan", license: "FAL", url: "https://commons.wikimedia.org/wiki/File:German_cockroach.jpg", images: ["/images/cockroach-control.webp"] },
+  { file: "Vespula germanica Richard Bartz.jpg", author: "Richard Bartz, Munich aka Makro Freak", license: "CC BY-SA 2.5", url: "https://commons.wikimedia.org/wiki/File:Vespula_germanica_Richard_Bartz.jpg", images: ["/images/stinging-insect.webp"] },
+  { file: "Aedes aegypti CDC-Gathany.jpg", author: "James Gathany", license: "Public domain", url: "https://commons.wikimedia.org/wiki/File:Aedes_aegypti_CDC-Gathany.jpg", images: ["/images/mosquito-tick.webp"] },
+  { file: "Bed bug, Cimex lectularius.jpg", author: "Piotr Naskrecki for CDC / Harvard University", license: "Public domain", url: "https://commons.wikimedia.org/wiki/File:Bed_bug,_Cimex_lectularius.jpg", images: ["/images/bed-bug.webp"] },
+  { file: "Brown marmorated stink bug.jpg", author: "Lildobe", license: "CC BY-SA 3.0", url: "https://commons.wikimedia.org/wiki/File:Brown_marmorated_stink_bug.jpg", images: ["/images/occasional-invader.webp", "/images/blog-stinkbug.webp"] },
+  { file: "Adult deer tick.jpg", author: "Scott Bauer", license: "Public domain", url: "https://commons.wikimedia.org/wiki/File:Adult_deer_tick.jpg", images: ["/images/blog-tick.webp"] },
+];

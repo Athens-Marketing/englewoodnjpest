@@ -1,0 +1,42 @@
+---
+import Base from "../components/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { site } from "../data/site.js";
+import { orgNode, breadcrumb } from "../lib/schema.js";
+import { photoCredits } from "../data/photoCredits.js";
+const path = "/photo-credits/";
+const title = `Photo Credits | ${site.brand}`;
+const description = `Credits and licenses for the Wikimedia Commons photos used on the ${site.brand} website.`;
+const crumbs = [{ name: "Home", path: "/" }, { name: "Photo Credits", path }];
+const jsonld = [orgNode(), breadcrumb(crumbs)];
+---
+<Base title={title} description={description} path={path} jsonld={jsonld}>
+  <Header />
+  <main id="main">
+    <section class="phero">
+      <div class="phero-stars"></div>
+      <div class="phero-scrim"></div>
+      <div class="wrap phero-in phero-in--area">
+        <span class="phero-kick">Legal</span>
+        <h1>Photo Credits</h1>
+        <p>Where the photos on this site come from.</p>
+      </div>
+    </section>
+    <Breadcrumbs items={crumbs} />
+    <section class="sbody">
+      <div class="wrap sbody-in sbody-in--solo">
+        <article class="sbody-main">
+          <p class="lead">These photos come from Wikimedia Commons. We host resized copies on this site and credit each one below under its original license.</p>
+          <ul>
+            {photoCredits.map((c) => (
+              <li><a href={c.url} rel="nofollow noopener">{c.file}</a> by {c.author}, {c.license}</li>
+            ))}
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
